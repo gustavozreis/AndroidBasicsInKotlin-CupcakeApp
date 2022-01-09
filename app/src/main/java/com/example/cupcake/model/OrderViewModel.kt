@@ -35,4 +35,9 @@ class OrderViewModel: ViewModel() {
     private val _price = MutableLiveData<Double>(0.0)
     val price: LiveData<Double> = _price
 
+    // verificar se o sabor foi escolhido
+    fun hasNoFlavorSet(): Boolean {
+        return _flavor.value.isNullOrEmpty()
+    }
+
 }

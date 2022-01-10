@@ -28,7 +28,6 @@ class OrderViewModel : ViewModel() {
     val flavor: LiveData<String> = _flavor
 
     // lista de datas possíveis
-    //val dateOptions: List<String> = getPickupOptions()
     val dateOptions: MutableList<String> = mutableListOf("")
 
     // data de retirada
@@ -40,6 +39,10 @@ class OrderViewModel : ViewModel() {
     val price: LiveData<String> = Transformations.map(_price) {
         NumberFormat.getCurrencyInstance().format(it)
     }
+
+    // nome do usuário
+    private val _name = MutableLiveData<String>()
+    val name: LiveData<String> = _name
 
     init {
         // seta ordens iniciais do pedido
@@ -61,6 +64,11 @@ class OrderViewModel : ViewModel() {
     fun setDate(pickupDate: String) {
         _date.value = pickupDate
         updatePrice()
+    }
+
+    // setar nome do usuário
+    fun setName(userName: String) {
+        _name.value = userName
     }
 
     // verificar se o sabor foi escolhido
@@ -97,6 +105,7 @@ class OrderViewModel : ViewModel() {
         _flavor.value = ""
         _date.value = dateOptions[0]
         _price.value = 0.0
+        _name.value = ""
     }
 
     // definir preço total

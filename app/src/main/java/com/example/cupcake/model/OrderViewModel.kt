@@ -1,14 +1,17 @@
 package com.example.cupcake.model
 
-import android.icu.number.IntegerWidth
+import android.content.Context
+import android.content.res.Resources
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import java.text.SimpleDateFormat
+import com.example.cupcake.R
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
-import java.util.Calendar
 import java.util.Locale
 
 private const val PRICE_PER_CUPCAKE = 2.00
@@ -25,7 +28,8 @@ class OrderViewModel : ViewModel() {
     val flavor: LiveData<String> = _flavor
 
     // lista de datas possíveis
-    val dateOptions: List<String> = getPickupOptions()
+    //val dateOptions: List<String> = getPickupOptions()
+    val dateOptions: MutableList<String> = mutableListOf("")
 
     // data de retirada
     private val _date = MutableLiveData<String>()
@@ -65,16 +69,26 @@ class OrderViewModel : ViewModel() {
     }
 
     // função para pegar a data do local do usuário
-    private fun getPickupOptions(): List<String> {
-        val options = mutableListOf<String>()
+    fun getPickupOptions() {
+        // Create a list of dates starting with the current date and the following 3 dates
+        //val options = mutableListOf<String>()
         val formatter = SimpleDateFormat("E MMM d", Locale.getDefault())
         val calendar = Calendar.getInstance()
-        // Create a list of dates starting with the current date and the following 3 dates
-        repeat(4) {
-            options.add(formatter.format(calendar.time))
-            calendar.add(Calendar.DATE, 1)
+        dateOptions.clear()
+
+        // checar se o sabor é 'special flavor'
+        if (flavor.value.toString() == "Special Flavor") {
+            repeat(4) {
+                calendar.add(Calendar.DATE, 1)
+                dateOptions.add(formatter.format(calendar.time))
+
+            }
+        } else {
+            repeat(4) {
+                dateOptions.add(formatter.format(calendar.time))
+                calendar.add(Calendar.DATE, 1)
+            }
         }
-        return options
     }
 
     // redefinir MutableLiveData no modelo de visualização

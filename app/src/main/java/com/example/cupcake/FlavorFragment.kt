@@ -56,6 +56,12 @@ class FlavorFragment : Fragment() {
         }
     }
 
+    // função para botão de cancelar voltar ao fragmento inicial
+    fun cancelOrder() {
+        sharedViewModel.resetOrder()
+        findNavController().navigate(R.id.action_flavorFragment_to_startFragment)
+    }
+
     /**
      * Navigate to the next screen to choose pickup date.
      */

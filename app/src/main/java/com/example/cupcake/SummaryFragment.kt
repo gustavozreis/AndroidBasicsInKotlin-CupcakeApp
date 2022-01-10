@@ -53,8 +53,14 @@ class SummaryFragment : Fragment() {
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = sharedViewModel
-            sendButton.setOnClickListener { sendOrder() }
+            summaryFragment = this@SummaryFragment
         }
+    }
+
+    // função para botão de cancelar voltar ao fragmento inicial
+    fun cancelOrder() {
+        sharedViewModel.resetOrder()
+        findNavController().navigate(R.id.action_summaryFragment_to_startFragment)
     }
 
     /**

@@ -14,7 +14,7 @@ import java.util.Locale
 private const val PRICE_PER_CUPCAKE = 2.00
 private const val PRICE_FOR_SAME_DAY_PICKUP = 3.00
 
-class OrderViewModel: ViewModel() {
+class OrderViewModel : ViewModel() {
 
     // quantidade do pedido
     private val _quantity = MutableLiveData<Int>()
@@ -25,7 +25,7 @@ class OrderViewModel: ViewModel() {
     val flavor: LiveData<String> = _flavor
 
     // lista de datas possíveis
-    val dateOptions:List<String> = getPickupOptions()
+    val dateOptions: List<String> = getPickupOptions()
 
     // data de retirada
     private val _date = MutableLiveData<String>()
